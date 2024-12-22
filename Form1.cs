@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CinemaTeatrManager
 {
@@ -94,6 +95,20 @@ namespace CinemaTeatrManager
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             myConnection.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            foreach (var i in logins)
+            {
+                if (textBox1.Text == i) MessageBox.Show("Логин уже зарегистрирован");
+                else {
+                    string query = "INSERT INTO autorizationTable ([login],[password]) VALUES " + "('" + textBox1.Text + "','" + textBox2.Text + "')";
+                    OleDbCommand command = new OleDbCommand(query, myConnection);
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Регистрация прошла успешно");
+                }
+            }
         }
     }
 }
